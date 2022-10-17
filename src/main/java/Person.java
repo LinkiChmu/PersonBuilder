@@ -1,6 +1,3 @@
-import com.sun.source.tree.OpensTree;
-
-import java.util.Optional;
 import java.util.OptionalInt;
 
 public class Person {
@@ -25,7 +22,7 @@ public class Person {
         this.surname = surname;
         this.city = city;
 
-        if (this.age == null || this.age.isEmpty()) {
+        if (this.age == null) {
             if (age >= 0) {
                 this.age = OptionalInt.of(age);
             }
@@ -66,7 +63,7 @@ public class Person {
     @Override
     public String toString() {
         return '{' + name + " " + surname + ", "
-                + age + " лет, " + city + '}';
+                + age.getAsInt() + " лет, " + city + '}';
     }
 
     @Override
