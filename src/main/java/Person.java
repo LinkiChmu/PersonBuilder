@@ -28,9 +28,11 @@ public class Person {
             }
         }
     }
+
     public boolean hasAge() {
         return age != null;
     }
+
     public boolean hasAddress() {
         return city != null;
     }
@@ -38,12 +40,15 @@ public class Person {
     public String getName() {
         return name;
     }
+
     public String getSurname() {
         return surname;
     }
+
     public String getCity() {
         return city;
     }
+
     public OptionalInt getAge() {
         return age;
     }
@@ -60,6 +65,14 @@ public class Person {
         this.city = city;
     }
 
+    public PersonBuilder newChildBuilder() {
+        return new PersonBuilder()
+                .setSurname(this.surname)
+                .setAge(0)
+                .setCity(this.city);
+    }
+
+
     @Override
     public String toString() {
         return '{' + name + " " + surname + ", "
@@ -70,11 +83,7 @@ public class Person {
     public int hashCode() {
         int result = 17;
         result = 31 * result + name.hashCode();
-        result = 31 *result + surname.hashCode();
+        result = 31 * result + surname.hashCode();
         return result;
-
-
-
-
     }
 }

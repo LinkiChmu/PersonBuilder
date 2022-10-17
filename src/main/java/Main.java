@@ -1,13 +1,16 @@
 public class Main {
     public static void main(String[] args) {
-        Person person = new PersonBuilder()
+        Person mom = new PersonBuilder()
                 .setName("Иван")
                 .setSurname("Прок")
                 .setAge(34)
                 .setCity("Орёл")
                 .build();
+        Person son = mom.newChildBuilder()
+                        .setName("Матвей")
+                                .build();
 
-        System.out.println(person.hasAddress());
+        System.out.println("У " + mom + " есть ребенок, " + son);
 
         try { new PersonBuilder()
                     .setSurname("Черноусов")
