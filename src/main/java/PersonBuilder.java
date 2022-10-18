@@ -7,17 +7,17 @@ public class PersonBuilder {
     protected OptionalInt age;
 
     public PersonBuilder setName(String name) {
-        this.name = name;
+        this.name = name.trim();
         return this;
     }
 
     public PersonBuilder setSurname(String surname) {
-        this.surname = surname;
+        this.surname = surname.trim();
         return this;
     }
 
     public PersonBuilder setCity(String city) {
-        this.city = city;
+        this.city = city.trim();
         return this;
     }
 
@@ -29,22 +29,21 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        if (name == null || name.isBlank()) {
-            throw new IllegalStateException("Не заполнено поле 'name'");
+        if (name == null || name.isEmpty()) {
+            throw new IllegalStateException("Не заполнено имя");
         }
-        if (surname == null || surname.isBlank()) {
-            throw new IllegalStateException("Не заполнено поле 'surname'");
+        if (surname == null || surname.isEmpty()) {
+            throw new IllegalStateException("Не заполнена фамилия");
         }
-        if (city == null || city.isBlank()) {
-            throw new IllegalStateException("Не заполнено поле 'city'");
+        if (city == null || city.isEmpty()) {
+            throw new IllegalStateException("Не заполнен город");
         }
         if (age == null) {
-            throw new IllegalStateException("Не заполнено поле 'age'");
+            throw new IllegalStateException("Не заполнен возраст");
         }
         if (age.getAsInt() > 110 || age.getAsInt() < 0) {
             throw new IllegalArgumentException("Неправильно введён возраст: " + age.getAsInt());
         }
         return new Person(name, surname, city, age.getAsInt());
     }
-
 }

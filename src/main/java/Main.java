@@ -1,18 +1,22 @@
+import java.util.OptionalInt;
+
 public class Main {
     public static void main(String[] args) {
+
         Person mom = new PersonBuilder()
-                .setName("Иван")
+                .setName("Иван  ")
                 .setSurname("Прок")
                 .setAge(34)
                 .setCity("Орёл")
                 .build();
-        Person son = mom.newChildBuilder()
-                        .setName("Матвей")
-                                .build();
+        Person son = mom.newChildBuilder(2)
+                .setName("Матвей")
+                .build();
+        son.happyBirthday();
+        System.out.println("У " + mom + " есть ребенок: " + son);
 
-        System.out.println("У " + mom + " есть ребенок, " + son);
-
-        try { new PersonBuilder()
+        try {
+            new PersonBuilder()
                     .setSurname("Черноусов")
                     .setAge(60)
                     .build();

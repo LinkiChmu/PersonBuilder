@@ -7,25 +7,33 @@ public class Person {
     protected OptionalInt age;
 
     public Person(String name, String surname) {
+        if (name == null || surname == null) {
+            throw new IllegalArgumentException("Не хватает данных. Обязательные поля: 'name', 'surname'");
+        }
         this.name = name;
         this.surname = surname;
     }
 
     public Person(String name, String surname, String city) {
+        if (name == null || surname == null) {
+            throw new IllegalArgumentException("Не хватает данных. Обязательные поля: 'name', 'surname'");
+        }
         this.name = name;
         this.surname = surname;
         this.city = city;
     }
 
     public Person(String name, String surname, String city, int age) {
+        if (name == null || surname == null) {
+            throw new IllegalArgumentException("Не хватает данных. Обязательные поля: 'name', 'surname'");
+        }
         this.name = name;
         this.surname = surname;
         this.city = city;
-
-        if (this.age == null) {
-            if (age >= 0) {
-                this.age = OptionalInt.of(age);
-            }
+        if (age >= 0 && age < 110) {
+            this.age = OptionalInt.of(age);
+        } else {
+            throw new IllegalArgumentException("Недопустимый возраст");
         }
     }
 
@@ -49,8 +57,11 @@ public class Person {
         return city;
     }
 
-    public OptionalInt getAge() {
-        return age;
+    public int getAge() {
+        if (age != null) {
+            return age.getAsInt();
+        }
+        return -1;
     }
 
     public void happyBirthday() {
@@ -65,6 +76,13 @@ public class Person {
         this.city = city;
     }
 
+    public PersonBuilder newChildBuilder(int age) {
+        return new PersonBuilder()
+                .setSurname(this.surname)
+                .setAge(age)
+                .setCity(this.city);
+    }
+
     public PersonBuilder newChildBuilder() {
         return new PersonBuilder()
                 .setSurname(this.surname)
@@ -72,11 +90,9 @@ public class Person {
                 .setCity(this.city);
     }
 
-
     @Override
     public String toString() {
-        return '{' + name + " " + surname + ", "
-                + age.getAsInt() + " лет, " + city + '}';
+        return name + " " + surname + ", " + age.getAsInt() + " лет, " + city;
     }
 
     @Override
