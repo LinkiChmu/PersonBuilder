@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.OptionalInt;
 
 public class Person {
@@ -101,5 +102,18 @@ public class Person {
         result = 31 * result + name.hashCode();
         result = 31 * result + surname.hashCode();
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Person p = (Person) obj;
+        return Objects.equals(name, p.name) &&
+                Objects.equals(surname, p.surname);
     }
 }

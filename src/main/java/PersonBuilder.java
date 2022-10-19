@@ -23,6 +23,9 @@ public class PersonBuilder {
 
     public PersonBuilder setAge(int age) {
         if (this.age == null) {
+            if (age > 110 || age < 0) {
+                throw new IllegalArgumentException("Неправильно введён возраст: " + age);
+            }
             this.age = OptionalInt.of(age);
         }
         return this;
@@ -40,9 +43,6 @@ public class PersonBuilder {
         }
         if (age == null) {
             throw new IllegalStateException("Не заполнен возраст");
-        }
-        if (age.getAsInt() > 110 || age.getAsInt() < 0) {
-            throw new IllegalArgumentException("Неправильно введён возраст: " + age.getAsInt());
         }
         return new Person(name, surname, city, age.getAsInt());
     }

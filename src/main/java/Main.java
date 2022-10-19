@@ -1,10 +1,8 @@
-import java.util.OptionalInt;
-
 public class Main {
     public static void main(String[] args) {
 
         Person mom = new PersonBuilder()
-                .setName("Иван  ")
+                .setName("Татьяна")
                 .setSurname("Прок")
                 .setAge(34)
                 .setCity("Орёл")
@@ -14,6 +12,7 @@ public class Main {
                 .build();
         son.happyBirthday();
         System.out.println("У " + mom + " есть ребенок: " + son);
+        System.out.println(mom.equals(son));
 
         try {
             new PersonBuilder()
