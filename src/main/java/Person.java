@@ -5,7 +5,7 @@ public class Person {
     protected final String name;
     protected final String surname;
     protected String city;
-    protected OptionalInt age;
+    protected int age = -1;
 
     public Person(String name, String surname) {
         if (name == null || surname == null) {
@@ -15,31 +15,8 @@ public class Person {
         this.surname = surname;
     }
 
-    public Person(String name, String surname, String city) {
-        if (name == null || surname == null) {
-            throw new IllegalArgumentException("Не хватает данных. Обязательные поля: 'name', 'surname'");
-        }
-        this.name = name;
-        this.surname = surname;
-        this.city = city;
-    }
-
-    public Person(String name, String surname, String city, int age) {
-        if (name == null || surname == null) {
-            throw new IllegalArgumentException("Не хватает данных. Обязательные поля: 'name', 'surname'");
-        }
-        this.name = name;
-        this.surname = surname;
-        this.city = city;
-        if (age >= 0 && age < 110) {
-            this.age = OptionalInt.of(age);
-        } else {
-            throw new IllegalArgumentException("Недопустимый возраст");
-        }
-    }
-
     public boolean hasAge() {
-        return age != null;
+        return age != -1;
     }
 
     public boolean hasAddress() {
@@ -58,18 +35,21 @@ public class Person {
         return city;
     }
 
-    public int getAge() {
-        if (age != null) {
-            return age.getAsInt();
-        }
-        return -1;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public OptionalInt getAge() {
+        return age != -1 ? OptionalInt.of(age) : OptionalInt.empty();
     }
 
     public void happyBirthday() {
-        if (age != null) {
-            int currentAge = age.getAsInt();
-            currentAge++;
-            age = OptionalInt.of(currentAge);
+        if (age != -1) {
+            age++;
         }
     }
 
@@ -77,23 +57,16 @@ public class Person {
         this.city = city;
     }
 
-    public PersonBuilder newChildBuilder(int age) {
-        return new PersonBuilder()
-                .setSurname(this.surname)
-                .setAge(age)
-                .setCity(this.city);
-    }
-
     public PersonBuilder newChildBuilder() {
         return new PersonBuilder()
-                .setSurname(this.surname)
+                .setSurname(surname)
                 .setAge(0)
-                .setCity(this.city);
+                .setCity(city);
     }
 
     @Override
     public String toString() {
-        return name + " " + surname + ", " + age.getAsInt() + " лет, " + city;
+        return name + " " + surname + ", " + age + " лет, " + city;
     }
 
     @Override

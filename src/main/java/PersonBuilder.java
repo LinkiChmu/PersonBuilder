@@ -1,10 +1,8 @@
-import java.util.OptionalInt;
-
 public class PersonBuilder {
     protected String name;
     protected String surname;
     protected String city;
-    protected OptionalInt age;
+    protected int age = -1;
 
     public PersonBuilder setName(String name) {
         this.name = name.trim();
@@ -21,13 +19,27 @@ public class PersonBuilder {
         return this;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     public PersonBuilder setAge(int age) {
-        if (this.age == null) {
-            if (age > 110 || age < 0) {
-                throw new IllegalArgumentException("Неправильно введён возраст: " + age);
-            }
-            this.age = OptionalInt.of(age);
+        if (age > 110 || age < 0) {
+            throw new IllegalArgumentException("Возраст может быть от 0 до 110 лет");
         }
+        this.age = age;
         return this;
     }
 
@@ -41,9 +53,9 @@ public class PersonBuilder {
         if (city == null || city.isEmpty()) {
             throw new IllegalStateException("Не заполнен город");
         }
-        if (age == null) {
-            throw new IllegalStateException("Не заполнен возраст");
-        }
-        return new Person(name, surname, city, age.getAsInt());
+        Person person = new Person(name, surname);
+        person.setAge(age);
+        person.setCity(city);
+        return person;
     }
 }

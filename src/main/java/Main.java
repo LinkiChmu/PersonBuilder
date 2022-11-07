@@ -7,7 +7,7 @@ public class Main {
                 .setAge(34)
                 .setCity("Орёл")
                 .build();
-        Person son = mom.newChildBuilder(2)
+        Person son = mom.newChildBuilder()
                 .setName("Матвей")
                 .build();
         son.happyBirthday();
